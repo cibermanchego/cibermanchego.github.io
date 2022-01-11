@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+  <head>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>Crea tu propio blog de IT o Ciberseguridad con Hugo y AWS S3 - Cibemanchego</title>
+  <meta name="description" content="Crea tu propio blog de IT o Ciberseguridad con Hugo y AWS S3. Para mi primer post he pensado que lo mejor es hacer una pequeña guía de cómo he creado este blog. Está basado en Hugo, que es un conversor de markdown a a HTML. Hace años empecé con Jekyll, pero ahora me he pasado a Hugo y la verdad me gusta más. Para alojamiento, primero pensé en usar github pages, pero al final he seguido la idea de Graham Helton y me he decidido por usar un bucket de AWS S3; no es gratis, pero si muy barato, y me permite tener mi propio nombre de dominio.">
+  <meta name="author" content="Cibermanchego"/><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "Cibemanchego",
+    
+    "url": "https:\/\/cibermanchego.com"
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "",
+  "url": "https:\/\/cibermanchego.com"
+  
+  
+  
+  
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "https:\/\/cibermanchego.com",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "https:\/\/cibermanchego.com\/posts\/crea_tu_propio_blog\/",
+          "name": "Crea tu propio blog de it o ciberseguridad con hugo y aws s3"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : "Cibermanchego"
+  },
+  "headline": "Crea tu propio blog de IT o Ciberseguridad con Hugo y AWS S3",
+  "description" : "Crea tu propio blog de IT o Ciberseguridad con Hugo y AWS S3. Para mi primer post he pensado que lo mejor es hacer una pequeña guía de cómo he creado este blog. Está basado en Hugo, que es un conversor de markdown a a HTML. Hace años empecé con Jekyll, pero ahora me he pasado a Hugo y la verdad me gusta más. Para alojamiento, primero pensé en usar github pages, pero al final he seguido la idea de Graham Helton y me he decidido por usar un bucket de AWS S3; no es gratis, pero si muy barato, y me permite tener mi propio nombre de dominio.",
+  "inLanguage" : "en",
+  "wordCount":  1718 ,
+  "datePublished" : "2022-01-10T19:25:16",
+  "dateModified" : "2022-01-10T19:25:16",
+  "image" : "https:\/\/cibermanchego.com\/img\/avatar.jfif",
+  "keywords" : [ "hugo, obsidian" ],
+  "mainEntityOfPage" : "https:\/\/cibermanchego.com\/posts\/crea_tu_propio_blog\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "https:\/\/cibermanchego.com",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "https:\/\/cibermanchego.com\/img\/avatar.jfif",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
+
+<meta property="og:title" content="Crea tu propio blog de IT o Ciberseguridad con Hugo y AWS S3" />
+<meta property="og:description" content="Crea tu propio blog de IT o Ciberseguridad con Hugo y AWS S3. Para mi primer post he pensado que lo mejor es hacer una pequeña guía de cómo he creado este blog. Está basado en Hugo, que es un conversor de markdown a a HTML. Hace años empecé con Jekyll, pero ahora me he pasado a Hugo y la verdad me gusta más. Para alojamiento, primero pensé en usar github pages, pero al final he seguido la idea de Graham Helton y me he decidido por usar un bucket de AWS S3; no es gratis, pero si muy barato, y me permite tener mi propio nombre de dominio.">
+<meta property="og:image" content="https://cibermanchego.com/img/avatar.jfif" />
+<meta property="og:url" content="https://cibermanchego.com/posts/crea_tu_propio_blog/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Cibemanchego" />
+
+  <meta name="twitter:title" content="Crea tu propio blog de IT o Ciberseguridad con Hugo y AWS S3" />
+  <meta name="twitter:description" content="Crea tu propio blog de IT o Ciberseguridad con Hugo y AWS S3. Para mi primer post he pensado que lo mejor es hacer una pequeña guía de cómo he creado este blog. Está basado en Hugo, que es un …">
+  <meta name="twitter:image" content="https://cibermanchego.com/img/avatar.jfif" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@cibermanchego" />
+  <meta name="twitter:creator" content="@cibermanchego" />
+  <link href='https://cibermanchego.com/img/sombrero.ico' rel='icon' type='image/x-icon'/>
+  <meta name="generator" content="Hugo 0.91.2" />
+  <link rel="alternate" href="https://cibermanchego.com/index.xml" type="application/rss+xml" title="Cibemanchego"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://cibermanchego.com/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
+  <link rel="stylesheet" href="https://cibermanchego.com/css/highlight.min.css" /><link rel="stylesheet" href="https://cibermanchego.com/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://cibermanchego.com">Cibemanchego</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+
+        
+
+        
+      </ul>
+    </div>
+
+    
+      <div class="avatar-container">
+        <div class="avatar-img-border">
+          <a title="Cibemanchego" href="https://cibermanchego.com">
+            <img class="avatar-img" src="https://cibermanchego.com/img/avatar.jfif" alt="Cibemanchego" />
+          </a>
+        </div>
+      </div>
+    
+
+  </div>
+</nav>
+
+
+
+
+    
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
+  
+  
+  
+
+
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="posts-heading">
+              
+                <h1>Crea tu propio blog de IT o Ciberseguridad con Hugo y AWS S3</h1>
+              
+              
+                <hr class="small">
+              
+              
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        <h1 id="crea-tu-propio-blog-de-it-o-ciberseguridad-con-hugo-y-aws-s3">Crea tu propio blog de IT o Ciberseguridad con Hugo y AWS S3.</h1>
+<p>Para mi primer post he pensado que lo mejor es hacer una pequeña guía de cómo he creado este blog. Está basado en <a href="https://gohugo.io/">Hugo</a>, que es un conversor de markdown a a HTML. Hace años empecé con <a href="https://jekyllrb.com/">Jekyll</a>, pero ahora me he pasado a Hugo y la verdad me gusta más. 
+Para alojamiento, primero pensé en usar github pages, pero al final he seguido la idea de <a href="https://www.twitter.com/grahamhelton3">Graham Helton</a> y me he decidido por usar un bucket de AWS S3; no es gratis, pero si muy barato, y me permite tener mi propio nombre de dominio.</p>
+<p>Graham tiene una serie de posts en inglés donde explica muy bien el proceso a seguir y los motivos para su elección, podéis encontrarlos <a href="https://www.grahamhelton.com/blog/infosecblog1/">aquí</a>. Yo no voy a explicar las cosas en tanto detalle, pero si seguiré todos los pasos necesarios para al menos tener la infraestructura y publicar nuestro blog con su propio dominio, nada de github.io o similares, creo que merece la pena tener nuestro propio sitio para ir haciendo nuestra &ldquo;marca&rdquo;.</p>
+<h3 id="por-qué-tener-tu-propio-blog">Por qué tener tu propio blog</h3>
+<p>Escribir un blog requiere una gran inversión de tiempo normalmente, y es posible que muy poca gente lo lea; en mi caso es muy probable que solo lo lea yo 😅.</p>
+<p>Dicho esto, por qué molestarte en tener tu propio blog, qué puedo aportar yo que no esté mil veces explicado por otros. En mi caso el motivo principal es poner por escrito en forma de guía cosas que voy aprendiendo en mi trabajo o en ratos que echo en aprender nuevas cosas que después me pueden servir en el trabajo. Siempre(casi) tomo notas de todo lo que hago/instalo/configuro, así cuando cinco minutos después he olvidado lo que hice, puedo volver a mis notas.</p>
+<p>Un blog me obliga(o eso espero) a invertir algo más de tiempo en mis notas para ciertos proyectos o ideas, y no hay mejor forma de aprender algo que explicar para otros lo que estás haciendo. Otro motivo por supuesto es compartir lo que hago para que pueda ser útil a otros, de la misma forma que yo aprendo de muchas otras personas del mundillo que dedican un montón de tiempo en sus propios blogs.
+También quiero usar este blog como una  excusa para practicar escritura técnica y exposición de ideas, que siempre viene bien 😊.</p>
+<h3 id="herramientas">Herramientas</h3>
+<p>Además de la mencionada  <a href="https://gohugo.io/">Hugo</a>, para crear los posts en Markdown utilizo <a href="https://obsidian.md/">Obsidian</a>, también recomendada por <a href="https://www.twitter.com/grahamhelton3">Graham Helton</a>, y que yo descubrí sobre todo gracias a <a href="https://twitter.com/ladybenko">Belén</a>, a la que sigo en Twitter y que cada dos por tres explica por qué y cómo utilizarlo para tomar notas de manera mucho más eficiente a como yo lo hacía hasta ahora con otras herramientas (Cherrytree, Joplin, y otras). Personalmente, a raíz de sus hilos, yo he empezado a utilizarla en mi trabajo como una Wiki para consumo interno, y estoy encantado con el cambio. Otra buena opción es <a href="https://code.visualstudio.com/">VSCode</a>, que yo suelo utilizar más para scripting, ya sea en Python o Powershell, o para configuraciones de Terraform y Ansible. Y específica para Markdown me gusta mucho también <a href="https://typora.io/">Typora</a>, muy intuitiva y minimalista.</p>
+<p>En esta guía voy a explicar como utilizar todo esto para crear tu blog usando <strong>Windows</strong> como SO de base - si, lo se, ¡Sacrilegio!. Lo reconozco, uso Windows como mi SO principal, porque gran parte de mi trabajo consiste en hacer documentación y presentaciones, para esto me manejo mucho mejor con el paquete Office de Microsoft, así que directamente trabajo en Windows y utilizo <a href="https://docs.microsoft.com/en-us/windows/wsl/">WSL</a> con <a href="https://aka.ms/terminal">Windows Terminal</a> cuando necesito usar Linux.</p>
+<p>Por último, para utilizar Hugo desde la línea de comandos, junto con otras muchas herramientas, utilizo <a href="https://chocolatey.org/">Chocolatey</a>, un gran gestor de paquetes para Windows. Para instalarlo, es muy fácil, sigue las instrucciones <a href="https://chocolatey.org/install">aquí</a> desde tu terminal de Windows 😊.</p>
+<h3 id="preparando-el-terreno-en-local">Preparando el terreno en local</h3>
+<p>Una vez que tenemos Windows Terminal y Chocolatey instalado, podemos empezar con la configuración de nuestra infraestructura para el blog.</p>
+<h4 id="instalando-hugohttpsgohugoio-y-creando-nuestro-blog">Instalando <a href="https://gohugo.io/">Hugo</a> y creando nuestro blog</h4>
+<p>Abrimos Terminal y ejecutamos:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">choco install hugo-extended -confirm
+</code></pre></div><p><img src="/images/post1/hugo_install.png" alt="hugo installation command"></p>
+<p>Y ya está, Hugo instalado, ¿A que mola chocolatey?
+El siguiente paso es crear un nuevo proyecto, hacemos un nuevo directorio, por ejemplo &lsquo;blog&rsquo;, y ejecutamos:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">mkdir blog
+<span class="nb">cd</span> blog
+hugo new site .
+</code></pre></div><p>Esto crea la estructura necesaria para nuestro sitio web.</p>
+<h4 id="eligiendo-un-tema-para-nuestro-blog">Eligiendo un tema para nuestro blog</h4>
+<p>Con Hugo podemos elegir entre muchos temas disponibles, para ver el catálogo disponible podemos ir al sitio de temas en esta <a href="https://themes.gohugo.io/">página</a>.
+Yo he elegido el tema <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>, aunque el <a href="https://github.com/rhazdon/hugo-theme-hello-friend-ng">Hello-friend-NG</a> también está muy bien para empezar.</p>
+<p><img src="/images/post1/temas.png" alt="temas_hugo"></p>
+<p>Una vez elegido, vamos a la página de GitHub del tema y copiamos el enlace para añadir el tema a nuestro blog.
+Para ello vamos simplemente a clonar el repositorio en un directorio que debe llamarse &lsquo;themes&rsquo;.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">mkdir themes
+<span class="nb">cd</span> themes
+git clone https://github.com/halogenica/beautifulhugo
+</code></pre></div><p><img src="/images/post1/install_beautiful_hugo.PNG" alt="instalando tema"></p>
+<p>El siguiente paso es copiar un par de archivos de configuración de el sitio de ejemplo que viene con el tema elegido. Copiamos <code> themes\beautifulhugo\exampleSite\config.toml</code>
+a la raiz de nuestro blog y también <code>\themes\beautifulhugo\archetypes\default.md</code> al directorio archetypes de nuestro blog, sobrescribiendo el archivo por defecto.</p>
+<p><em>Config.toml</em> contiene varios parámetros de configuración para el blog, y <em>default.md</em>
+se utiliza como template para los nuevos posts que creemos con <em>Hugo</em>.</p>
+<h4 id="configuración-básica">Configuración básica</h4>
+<p>Podemos (debemos) editar el archivo de configuración  copiado del tema (config.toml) para adaptarlo a nuestro blog.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="l">baseurl = &#34;https://cibermanchego.com&#34;</span><span class="w">
+</span><span class="w"></span><span class="l">DefaultContentLanguage = &#34;en&#34;</span><span class="w">
+</span><span class="w"></span><span class="l">publishDir = &#34;docs&#34;</span><span class="w">
+</span><span class="w"></span><span class="l">title = &#34;Cibemanchego&#34;</span><span class="w">
+</span><span class="w"></span><span class="l">theme = &#34;beautifulhugo&#34;</span><span class="w">
+</span><span class="w"></span><span class="l">metaDataFormat = &#34;yaml&#34;</span><span class="w">
+</span><span class="w"></span><span class="l">pygmentsStyle = &#34;trac&#34;</span><span class="w">
+</span><span class="w"></span><span class="l">pygmentsUseClasses = true</span><span class="w">
+</span><span class="w"></span><span class="l">pygmentsCodeFences = true</span><span class="w">
+</span><span class="w"></span><span class="l">pygmentsCodefencesGuessSyntax = true</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="p">[</span><span class="l">Params]</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="c">#  homeTitle = &#34;Beautiful Hugo Theme&#34; # Set a different text for the header on the home page</span><span class="w">
+</span><span class="w">
+</span><span class="w"> </span><span class="l">subtitle = &#34;Miguelitos and cybersecurity&#34;</span><span class="w">
+</span><span class="w"> </span><span class="l">mainSections = [&#34;post&#34;,&#34;posts&#34;]</span><span class="w">
+</span><span class="w"> </span><span class="l">logo = &#34;img/avatar.jfif&#34;</span><span class="w"> </span><span class="c"># Expecting square dimensions</span><span class="w">
+</span><span class="w"> </span><span class="l">favicon = &#34;img/favicon.ico&#34;</span><span class="w">
+</span><span class="w"> </span><span class="l">dateFormat = &#34;January 2, 2006&#34;</span><span class="w">
+</span><span class="w">
+</span></code></pre></div><p>En mi caso he cambiado la URL a la de mi sitio, el título, el logo y el <strong>publishDir</strong>, lo demás lo he dejado por defecto. He puesto como <strong>publishDir</strong> <em>docs</em> y ahí se generará todo el contenido cuando tengamos nuestro posts listos para publicar.</p>
+<h4 id="probando-en-local">Probando en local</h4>
+<p>Hugo nos permite probar nuestro sitio en local antes de publicar, además los cambios que hagamos se actualizan en tiempo real, lo que nos permite comprobar cambios sobre la marcha.
+Creamos primero un post de prueba con Hugo:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">hugo new posts\nuevo_post.md
+</code></pre></div><p>Este comando utiliza el archivo de <code>archetypes\default.md</code> para crear el post, y genera un archivo de Markdown con unos valores iniciales donde podemos añadir, tags y demás, y que podemos encontrar en <code>content\posts\nuevo_post.md</code></p>
+<p><img src="/images/post1/nuevo_post.PNG" alt="nuevo post"></p>
+<p>Ahora ya es cosa nuestra añadir nuestro contenido con montones de exploits y vulnerabilidades nuevas - o una sencilla guía como esta :).</p>
+<p>Ejecutamos el servidor local de hugo para ver el resultado; desde la raiz de nuestro blog:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">hugo server
+</code></pre></div><p>Al final del terminal vemos que podemos acceder a nuestro blog via http://localhost:1313</p>
+<p><img src="/images/post1/hugo_server.PNG" alt="hugo server"></p>
+<blockquote>
+<p>El Alien de la captura es el fondo de pantalla de mi terminal de Windows, está guapo eh 😛</p>
+</blockquote>
+<p>Y vemos el resultado con el tema aplicado en todo su esplendor.</p>
+<p><img src="/images/post1/blog.PNG" alt="blog"></p>
+<h4 id="subiéndolo-a-internet">Subiéndolo a Internet</h4>
+<p>Una vez que tenemos un nuevo post listo para publicar, el siguiente paso sería decidir como vamos a poner nuestro flamante blog ahí afuera para que todo el mundo lo vea.
+Una buena opción es usar <strong>GitHub pages</strong>, que fue mi opción inicial hasta decidirme por un bucket de AWS. En este <a href="https://4bes.nl/2021/08/29/create-a-website-with-hugo-and-github-pages/">post</a> podéis seguir una guía sencilla de como configurarlo de esta manera.</p>
+<p>Yo he preferido seguir el ejemplo de <a href="https://www.twitter.com/grahamhelton3">Graham</a> y utilizar AWS con mi propio dominio. He seguido sus pasos que explico a continuación.</p>
+<p>Pero primero debemos generar nuestro blog con Hugo. Una vez que estamos satisfechos con nuestro nuevo post, ejecutamos desde la raiz del blog:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">hugo
+</code></pre></div><p>Y ya está, esto genera todo los archivos necesarios y los copia en <strong>docs</strong>, ya que lo hemos especificado así en el archivo de configuración. Ahora necesitamos configurar el sitio desde donde nuestro blog será accesible públicamente.</p>
+<h4 id="configurando-nuestro-dominio-y-s3-bucket">Configurando nuestro dominio y S3 bucket</h4>
+<p>Creamos una cuenta en AWS si no la tenemos ya y vamos a la consola de <a href="https://console.aws.amazon.com/route53/v2/home#Dashboard">route53</a> para comprar un nuevo dominio. Hacemos click en <strong>Register Domain</strong> y elegimos un dominio que nos guste y esté disponible. En mi caso he elegido cibermanchego.com, que cuesta 12$ al año. Hay opciones más baratas, pero no hay mucha diferencia y ya que voy a usar AWS para alojar el blog, así tengo todo en un mismo sitio.</p>
+<p><img src="/images/post1/select_domain.png" alt="dominio"></p>
+<p>El siguiente paso es crear el bucket donde vamos a subir todos los archivos de nuestro blog.</p>
+<blockquote>
+<p><strong>Es importante tener claro que este bucket va a ser de acceso público, así que cuidado con poner aquí archivos privados</strong></p>
+</blockquote>
+<p>Creamos el bucket con el mismo nombre que el dominio que hemos comprado en el paso anterior.</p>
+<p><img src="/images/post1/bucket1.PNG" alt="bucket1"></p>
+<p>Desbloqueamos el acceso público, pues es justo lo que necesitamos.</p>
+<p><img src="/images/post1/bucket2.PNG" alt="bucket2"></p>
+<p>Lo siguiente es habilitar la opción de <em>Static Web hosting</em>, y añadir <strong>index.html</strong> como <em>Index Document</em></p>
+<p><img src="/images/post1/web_hosting.PNG" alt="web hosting"></p>
+<p>Añadimos la política de acceso público, copiando el siguiente texto y cambiando la URL a la de nuestro dominio:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+    <span class="nt">&#34;Version&#34;</span><span class="p">:</span> <span class="s2">&#34;2008-10-17&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;Id&#34;</span><span class="p">:</span> <span class="s2">&#34;PolicyForPublicWebsiteContent&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;Statement&#34;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="nt">&#34;Sid&#34;</span><span class="p">:</span> <span class="s2">&#34;PublicReadGetObject&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;Effect&#34;</span><span class="p">:</span> <span class="s2">&#34;Allow&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;Principal&#34;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&#34;AWS&#34;</span><span class="p">:</span> <span class="s2">&#34;*&#34;</span>
+            <span class="p">},</span>
+            <span class="nt">&#34;Action&#34;</span><span class="p">:</span> <span class="s2">&#34;s3:GetObject&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;Resource&#34;</span><span class="p">:</span> <span class="s2">&#34;arn:aws:s3:::cibermanchego.com/*&#34;</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div><p>Lo pegamos en <em>Permissions - Bucket Policy</em> de nuestro bucket:</p>
+<p><img src="/images/post1/bucket_policy.PNG" alt="bucket policy"></p>
+<p>El bucket ya está listo para ser usado en nuestro blog, pero todavía tenemos que configurar el DNS de nuestro nuevo dominio.
+En la consola de <a href="https://console.aws.amazon.com/route53/v2/hostedzones#">Route53</a> vamos a <em>Hosted Zones</em> donde la zona de nuestro dominio debería ya estar creada.
+Añadimos un nuevo registro te tipo A y lo asociamos a nuestro bucket.</p>
+<p><img src="/images/post1/record_a.PNG" alt="record A"></p>
+<p>También podemos crear otro registro de tipo CNAME para asociar <em>www</em> a nuestro dominio.</p>
+<p><img src="/images/post1/record_cname.PNG" alt="record CNAME"></p>
+<h4 id="subiendo-nuestro-blog-al-bucket">Subiendo nuestro blog al bucket</h4>
+<p>Solo nos queda subir los archivos generados por Hugo a nuestro bucket.
+Vamos a nuestra consola de <a href="https://s3.console.aws.amazon.com/s3/home">S3</a>, a nuestro bucket, y hacemos click en <strong>Upload</strong></p>
+<p><img src="/images/post1/upload.PNG" alt="upload"></p>
+<p>Aquí desde el navegador de Windows arrastramos y soltamos todo el contenido del directorio <strong>docs</strong> donde antes se generó el contenido de nuestro blog.</p>
+<p>Todo el proceso de generación de un nuevo post y subida de archivos a S3 para hacerlo público en nuestro blog se puede &ldquo;automatizar&rdquo;,
+esa es parte de la gracia de usar Hugo y AWS S3, pero eso igual ya lo explico en otro post 😉.</p>
+<p>Ya solo nos queda abrir en nuestro navegador nuestro nombre de dominio, y ahí deberíamos ver en todo su esplendor nuestra primera entrada.</p>
+
+
+        
+          <div class="blog-tags">
+            
+              <a href="https://cibermanchego.com/tags/hugo/">hugo</a>&nbsp;
+            
+              <a href="https://cibermanchego.com/tags/obsidian/">obsidian</a>&nbsp;
+            
+          </div>
+        
+
+        
+            <hr/>
+            <section id="social-share">
+              <div class="list-inline footer-links">
+                
+
+<div class="share-box" aria-hidden="true">
+    <ul class="share">
+      
+      <li>
+        <a href="//twitter.com/share?url=https%3a%2f%2fcibermanchego.com%2fposts%2fcrea_tu_propio_blog%2f&amp;text=Crea%20tu%20propio%20blog%20de%20IT%20o%20Ciberseguridad%20con%20Hugo%20y%20AWS%20S3&amp;via=cibermanchego" target="_blank" title="Share on Twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fcibermanchego.com%2fposts%2fcrea_tu_propio_blog%2f" target="_blank" title="Share on Facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//reddit.com/submit?url=https%3a%2f%2fcibermanchego.com%2fposts%2fcrea_tu_propio_blog%2f&amp;title=Crea%20tu%20propio%20blog%20de%20IT%20o%20Ciberseguridad%20con%20Hugo%20y%20AWS%20S3" target="_blank" title="Share on Reddit">
+          <i class="fab fa-reddit"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fcibermanchego.com%2fposts%2fcrea_tu_propio_blog%2f&amp;title=Crea%20tu%20propio%20blog%20de%20IT%20o%20Ciberseguridad%20con%20Hugo%20y%20AWS%20S3" target="_blank" title="Share on LinkedIn">
+          <i class="fab fa-linkedin"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.stumbleupon.com/submit?url=https%3a%2f%2fcibermanchego.com%2fposts%2fcrea_tu_propio_blog%2f&amp;title=Crea%20tu%20propio%20blog%20de%20IT%20o%20Ciberseguridad%20con%20Hugo%20y%20AWS%20S3" target="_blank" title="Share on StumbleUpon">
+          <i class="fab fa-stumbleupon"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.pinterest.com/pin/create/button/?url=https%3a%2f%2fcibermanchego.com%2fposts%2fcrea_tu_propio_blog%2f&amp;description=Crea%20tu%20propio%20blog%20de%20IT%20o%20Ciberseguridad%20con%20Hugo%20y%20AWS%20S3" target="_blank" title="Share on Pinterest">
+          <i class="fab fa-pinterest"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+  
+
+              </div>
+            </section>
+        
+
+        
+          
+
+          
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+          
+        </ul>
+      
+
+
+      
+        
+        
+      
+
+    </div>
+  </div>
+</div>
+
+      
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="https://github.com/cibermanchego" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://twitter.com/cibermanchego" title="Twitter">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          <li>
+            <a href="" title="RSS">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              <a href="cibermanchego.com">Cibermanchego</a>
+            
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2022
+          
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="https://cibermanchego.com">Cibemanchego</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="https://gohugo.io">Hugo v0.91.2</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script src="https://cibermanchego.com/js/main.js"></script>
+<script src="https://cibermanchego.com/js/highlight.min.js"></script>
+<script> hljs.initHighlightingOnLoad(); </script>
+<script> $(document).ready(function() {$("pre.chroma").css("padding","0");}); </script><script> renderMathInElement(document.body); </script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="https://cibermanchego.com/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+
+
+
+    
+  </body>
+</html>
+

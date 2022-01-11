@@ -1,4 +1,4 @@
-baseurl = "https://cibermanchego.github.io"
+baseurl = "https://cibermanchego.com"
 DefaultContentLanguage = "en"
 #DefaultContentLanguage = "ja"
 publishDir = "docs"
@@ -16,10 +16,10 @@ pygmentsCodefencesGuessSyntax = true
 
 [Params]
 #  homeTitle = "Beautiful Hugo Theme" # Set a different text for the header on the home page
-  subtitle = "Miguelitos y ciberseguridad"
+  subtitle = "Miguelitos and cybersecurity"
   mainSections = ["post","posts"]
   logo = "img/avatar.jfif" # Expecting square dimensions
-  favicon = "img/favicon.ico"
+  favicon = "img/sombrero.ico"
   dateFormat = "January 2, 2006"
   commit = false
   rss = true
@@ -47,12 +47,9 @@ pygmentsCodefencesGuessSyntax = true
 
 [Author]
   name = "Cibermanchego"
-  website = "cibermanchego.github.io"
+  website = "cibermanchego.com"
 #  email = "youremail@domain.com"
-  #facebook = "username"
   github = "cibermanchego"
-#  gitlab = "username"
-#  bitbucket = "username"
   twitter = "cibermanchego"
 #  reddit = "username"
 #  linkedin = "username"
