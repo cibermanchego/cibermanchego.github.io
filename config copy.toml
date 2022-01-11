@@ -1,4 +1,4 @@
-baseurl = "http://cibermanchego.com"
+baseurl = "https://cibermanchego.github.io"
 DefaultContentLanguage = "en"
 #DefaultContentLanguage = "ja"
 publishDir = "docs"

@@ -2,24 +2,24 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://cibermanchego.com/</loc>
+    <loc>https://cibermanchego.github.io/</loc>
     <lastmod>2022-01-10T19:25:16+01:00</lastmod>
   </url><url>
-    <loc>https://cibermanchego.com/posts/crea_tu_propio_blog/</loc>
+    <loc>https://cibermanchego.github.io/posts/crea_tu_propio_blog/</loc>
     <lastmod>2022-01-10T19:25:16+01:00</lastmod>
   </url><url>
-    <loc>https://cibermanchego.com/tags/hugo/</loc>
+    <loc>https://cibermanchego.github.io/tags/hugo/</loc>
     <lastmod>2022-01-10T19:25:16+01:00</lastmod>
   </url><url>
-    <loc>https://cibermanchego.com/tags/obsidian/</loc>
+    <loc>https://cibermanchego.github.io/tags/obsidian/</loc>
     <lastmod>2022-01-10T19:25:16+01:00</lastmod>
   </url><url>
-    <loc>https://cibermanchego.com/posts/</loc>
+    <loc>https://cibermanchego.github.io/posts/</loc>
     <lastmod>2022-01-10T19:25:16+01:00</lastmod>
   </url><url>
-    <loc>https://cibermanchego.com/tags/</loc>
+    <loc>https://cibermanchego.github.io/tags/</loc>
     <lastmod>2022-01-10T19:25:16+01:00</lastmod>
   </url><url>
-    <loc>https://cibermanchego.com/categories/</loc>
+    <loc>https://cibermanchego.github.io/categories/</loc>
   </url>
 </urlset>
